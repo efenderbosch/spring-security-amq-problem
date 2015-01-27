@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(value = "/test", produces = "application/json")
 public class TestController {
 
 	@Autowired
@@ -18,7 +19,7 @@ public class TestController {
 	@Autowired
 	private JmsTemplate jmsTemplate;
 
-	@RequestMapping(value = "/test/{id}", method = RequestMethod.POST)
+	@RequestMapping(value = "/{id}", method = RequestMethod.POST)
 	public ResponseEntity<?> create(@PathVariable("id") Long id, @RequestBody TestEntity testEntity) {
 		testEntity.setId(id);
 		TestEntity created = repo.save(testEntity);
@@ -26,9 +27,14 @@ public class TestController {
 		return new ResponseEntity(created, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/test/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public ResponseEntity<?> read(@PathVariable("id") Long id) {
 		return new ResponseEntity(repo.findOne(id), HttpStatus.OK);
+	}
+
+	@RequestMapping(method = RequestMethod.GET)
+	public ResponseEntity<?> findAll() {
+		return new ResponseEntity(repo.findAll(), HttpStatus.OK);
 	}
 
 }
