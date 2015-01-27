@@ -10,14 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BrokerStarter {
+public class BrokerServiceLifecycleManager {
 
-	private static final Logger log = LoggerFactory.getLogger(BrokerStarter.class);
+	private static final Logger log = LoggerFactory.getLogger(BrokerServiceLifecycleManager.class);
 
 	private final BrokerService brokerService;
 
 	@Autowired
-	public BrokerStarter(ActiveMQConnectionFactory connectionFactory) throws Exception {
+	public BrokerServiceLifecycleManager(ActiveMQConnectionFactory connectionFactory) throws Exception {
 		brokerService = new BrokerService();
 		brokerService.addConnector(connectionFactory.getBrokerURL());
 		log.info("starting AMQ broker service on: {}", brokerService.getTransportConnectorURIsAsMap());
