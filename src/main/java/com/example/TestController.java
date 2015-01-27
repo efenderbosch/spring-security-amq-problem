@@ -18,8 +18,9 @@ public class TestController {
 	@Autowired
 	private JmsTemplate jmsTemplate;
 
-	@RequestMapping(value = "/test", method = RequestMethod.POST)
-	public ResponseEntity<?> create(@RequestBody TestEntity testEntity) {
+	@RequestMapping(value = "/test/{id}", method = RequestMethod.POST)
+	public ResponseEntity<?> create(@PathVariable("id") Long id, @RequestBody TestEntity testEntity) {
+		testEntity.setId(id);
 		TestEntity created = repo.save(testEntity);
 		jmsTemplate.convertAndSend("testqueue", created);
 		return new ResponseEntity(created, HttpStatus.OK);
