@@ -1,10 +1,14 @@
 package com.example;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
-public class TestEntity {
+public class TestEntity implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	private Long id;
